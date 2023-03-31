@@ -1,0 +1,14 @@
+{
+  "name": "mark-format-html",
+  "version": "1.0.0",
+  "description": "Day la package giup hien thi dinh dang van ban tren Web chi voi HTML",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "markformat for html"
+  ],
+  "author": "Nguyen Anh Tuan",
+  "license": "ISC"
+}

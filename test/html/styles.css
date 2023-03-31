@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+*, *::before, *::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #e2e2e2;
+}
+
+html {
+  font-family: "Roboto";
+  font-size: 16px;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+  max-width: 720px;
+  background-color: #FFF;
+}
+
+.content {
+  padding: 0 12px;
+}
+
+ul, ol {
+  list-style-position: inside;
+  padding: 12px 0px 12px 22px;
+}
+
+/* High level MD */
+
+.h0, .h1, .h2, .h3, .h4, .h5 {
+  font-weight: 700;
+}
+
+.sub0, .sub1 {
+  font-weight: 300;
+}
+
+.h0 {
+  font-size: 2.25rem;
+}
+
+.h1 {
+  font-size: 2rem;
+}
+
+.h2 {
+  font-size: 1.17rem;
+}
+
+.h3 {
+  font-size: 1rem;
+}
+
+.h4, .sub0 {
+  font-size: .83rem;
+}
+
+.h5, .sub1 {
+  font-size: .67rem;
+}
+
+.image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  gap: 12px;
+}
+
+/* Low level MD */
+
+.bold {
+  font-weight: 700;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
+.line-through {
+  text-decoration-line: line-through;
+}
+
+.highlight {
+  padding: 3px 4px;
+  background-color: yellow;
+  font-weight: 500;
+}
+
+.text-align-right {
+  display: inline-block;
+  text-align: right;
+}
+
+.text-align-center {
+  display: inline-block;
+  text-align: center;
+}

@@ -1,0 +1,14 @@
+{
+  "name": "mark-format",
+  "version": "1.0.0",
+  "description": "Day la core cua markformat, neu nhu muon dung voi html thi xai mark-format-html, voi react native thi mark-format-react-native",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nguyen Anh Tuan",
+  "license": "ISC"
+}
