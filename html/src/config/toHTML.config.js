@@ -1,4 +1,4 @@
-import { LOW_MARK_CONVENTIONS, HIGH_MARK_CONVENTIONS } from "../../../src/rules.js"
+import { LOW_MARK_CONVENTIONS, HIGH_MARK_CONVENTIONS } from "mark-format/src/rules.js";
 
 /**
  * @typedef FormatTypeToCss

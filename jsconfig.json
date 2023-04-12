@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "mark-format/*": ["./mark-format/*"]
+    }
+  }
+}

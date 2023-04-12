@@ -1,5 +1,5 @@
 import { ViewStyle, StyleProp } from "react-native";
-import { LOW_MARK_CONVENTIONS, HIGH_MARK_CONVENTIONS } from "mark-format/src/rules.js";
+import { LOW_MARK_CONVENTIONS, HIGH_MARK_CONVENTIONS } from "../../../mark-format/src/rules.js";
 
 /*
   Đây là những format cơ bản nhất.
@@ -24,15 +24,14 @@ const SUB_1_TYPE = HIGH_MARK_CONVENTIONS.SUB_1.TYPE;
 const LINK_TYPE = HIGH_MARK_CONVENTIONS.LINK.TYPE;
 const IMAGE_TYPE = HIGH_MARK_CONVENTIONS.IMAGE.TYPE;
 const BLOCKQUOTE_TYPE = HIGH_MARK_CONVENTIONS.BLOCKQUOTE.TYPE;
-
-const TEXT_30 = 30
-const TEXT_24 = 24
-const TEXT_22 = 22
-const TEXT_20 = 20
-const TEXT_18 = 18
-const TEXT_16 = 16
-const TEXT_14 = 14
-const TEXT_12 = 12
+const TEXT_30 = 30;
+const TEXT_24 = 24;
+const TEXT_22 = 22;
+const TEXT_20 = 20;
+const TEXT_18 = 18;
+const TEXT_16 = 16;
+const TEXT_14 = 14;
+const TEXT_12 = 12;
 
 /**
  * @typedef FormatTypeToStyle
@@ -73,19 +72,19 @@ const formatTypeToStyle = {
       fontWeight: "300"
     }
   },
-  [UNDERLINE_TYPE] : {
+  [UNDERLINE_TYPE]: {
     format: UNDERLINE_TYPE,
     style: {
       textDecorationLine: "underline"
     }
   },
-  [LINE_THROUGH_TYPE] : {
+  [LINE_THROUGH_TYPE]: {
     format: LINE_THROUGH_TYPE,
     style: {
       textDecorationLine: "line-through"
     }
   },
-  [HIGHLIGHT_TYPE] : {
+  [HIGHLIGHT_TYPE]: {
     format: HIGHLIGHT_TYPE,
     style: {
       paddingVertical: 4,
@@ -93,19 +92,19 @@ const formatTypeToStyle = {
       backgroundColor: 'yellow'
     }
   },
-  [RIGHT_ALIGN_TYPE] : {
+  [RIGHT_ALIGN_TYPE]: {
     format: RIGHT_ALIGN_TYPE,
     style: {
       textAlign: 'right'
     }
   },
-  [CENTER_ALIGN_TYPE] : {
+  [CENTER_ALIGN_TYPE]: {
     format: CENTER_ALIGN_TYPE,
     style: {
       textAlign: 'center'
     }
   },
-  [UNORDERED_LIST_TYPE] : {
+  [UNORDERED_LIST_TYPE]: {
     format: UNORDERED_LIST_TYPE,
     isList: true,
     style: {
@@ -113,7 +112,7 @@ const formatTypeToStyle = {
       paddingVertical: 8
     }
   },
-  [ORDERED_LIST_TYPE] : {
+  [ORDERED_LIST_TYPE]: {
     format: ORDERED_LIST_TYPE,
     isList: true,
     style: {
@@ -121,68 +120,68 @@ const formatTypeToStyle = {
       paddingVertical: 8
     }
   },
-  [HEADING_0_TYPE] : {
+  [HEADING_0_TYPE]: {
     format: HEADING_0_TYPE,
     style: {
       fontWeight: "bold",
       fontSize: TEXT_30
     }
   },
-  [HEADING_1_TYPE] : {
+  [HEADING_1_TYPE]: {
     format: HEADING_1_TYPE,
     style: {
       fontWeight: "bold",
       fontSize: TEXT_24
     }
   },
-  [HEADING_2_TYPE] : {
+  [HEADING_2_TYPE]: {
     format: HEADING_2_TYPE,
     style: {
       fontWeight: "bold",
       fontSize: TEXT_22
     }
   },
-  [HEADING_3_TYPE] : {
+  [HEADING_3_TYPE]: {
     format: HEADING_3_TYPE,
     style: {
       fontWeight: "bold",
       fontSize: TEXT_20
     }
   },
-  [HEADING_4_TYPE] : {
+  [HEADING_4_TYPE]: {
     format: HEADING_4_TYPE,
     style: {
       fontWeight: "bold",
       fontSize: TEXT_18
     }
   },
-  [HEADING_5_TYPE] : {
+  [HEADING_5_TYPE]: {
     format: HEADING_5_TYPE,
     style: {
       fontWeight: "bold",
       fontSize: TEXT_16
     }
   },
-  [SUB_0_TYPE] : {
+  [SUB_0_TYPE]: {
     format: SUB_0_TYPE,
     style: {
       fontSize: TEXT_14
     }
   },
-  [SUB_1_TYPE] : {
+  [SUB_1_TYPE]: {
     format: SUB_1_TYPE,
     style: {
       fontSize: TEXT_12
     }
   },
-  [LINK_TYPE] : {
+  [LINK_TYPE]: {
     format: LINK_TYPE,
     style: {
       color: "#3F72AF",
       textDecorationLine: 'underline'
     }
   },
-  [IMAGE_TYPE] : {
+  [IMAGE_TYPE]: {
     format: IMAGE_TYPE,
     hasDescription: true,
     style: {
@@ -190,17 +189,13 @@ const formatTypeToStyle = {
       aspectRatio: 16 / 9
     }
   },
-  [BLOCKQUOTE_TYPE] : {
+  [BLOCKQUOTE_TYPE]: {
     format: BLOCKQUOTE_TYPE,
     style: {}
-  },
+  }
 };
-
-export const UNORDERED_LIST_BULLETS = ["\u2043", "\u2022"]
-export const ORDERED_LIST_BULLETS = [
-  "numbers",
-  "abcdefghijklmnopqrstuvwxyz"
-];
+export const UNORDERED_LIST_BULLETS = ["\u2043", "\u2022"];
+export const ORDERED_LIST_BULLETS = ["numbers", "abcdefghijklmnopqrstuvwxyz"];
 
 // Cái này để setup default font cho <Text> bọc bên ngoài toàn content.
 // Bởi vì người dùng có thể dùng font khác.
@@ -235,13 +230,11 @@ export let defaultFont = undefined;
  */
 export function configureStyleOfFTTS(styles) {
   let keys = Object.keys(styles);
-
-  for(let key of keys) {
+  for (let key of keys) {
     let fttsStyle = formatTypeToStyle[key];
-
-    if(fttsStyle) { 
+    if (fttsStyle) {
       fttsStyle.style = Object.assign({}, styles[key]);
-    } else console.warn(`The ${key} is not exist in FTTS`); 
+    } else console.warn(`The ${key} is not exist in FTTS`);
   }
 }
 
@@ -252,5 +245,4 @@ export function configureStyleOfFTTS(styles) {
 export function configureDefaultFont(nameOfFont) {
   defaultFont = nameOfFont;
 }
-
 export default formatTypeToStyle;

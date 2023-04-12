@@ -5,9 +5,9 @@ const breakline_non_g = /[\r\n]+/;
  * __Creator__: @NguyenAnhTuan1912
  * 
  * Phương thức này dùng dể check xem `text` có chứa ký tự `\r` hoặc `\n` hoặc cả `\r\n` không?
- * @param text Chuỗi chứa `\r` hoặc `\n` hoặc cả `\r\n`.
+ * @param {*} text Chuỗi chứa `\r` hoặc `\n` hoặc cả `\r\n`.
  */
-export function isBreakline(text: string) {
+export function isBreakline(text) {
   return breakline_non_g.test(text);
 }
 
@@ -16,11 +16,11 @@ export function isBreakline(text: string) {
  * 
  * Phương thức này dùng để đếm xem bên trong `text` có bao nhiêu ký tự `\r`, `\n`.
  * Thường thì `text` chỉ chứa các ký tự `\r` hoặc `\n` hoặc cả `\r\n`.
- * @param text Chuỗi chứa `\r` hoặc `\n` hoặc cả `\r\n`.
- * @returns
+ * @param {string} text Chuỗi chứa `\r` hoặc `\n` hoặc cả `\r\n`.
+ * @returns {number}
  */
-export function getNumberOfBreakline(text: string) {
-  return text.match(breakline)?.length;
+export function getNumberOfBreakline(text) {
+  return text.match(breakline).length;
 }
 
 /**
@@ -28,10 +28,10 @@ export function getNumberOfBreakline(text: string) {
  * 
  * Phương thức này dùng để duplicate (sao chép) một `str` nào đó
  * thành một chuỗi có nhiều `str`
- * @param str Chuỗi hoặc kí tự cần duplicate.
- * @param seperator Chuỗi hoặc kí tự tách biệt các `str`.
- * @param n Số lần duplicate mong muốn.
- * @returns
+ * @param {string} str Chuỗi hoặc kí tự cần duplicate.
+ * @param {string} seperator Chuỗi hoặc kí tự tách biệt các `str`.
+ * @param {number} n Số lần duplicate mong muốn.
+ * @returns {string}
  * 
  * @example
  * 
@@ -47,11 +47,11 @@ export function getNumberOfBreakline(text: string) {
  * console.log(duplicatedStrWithSpace)
  * ...
  */
-export function duplicate(str: string, n: number, seperator: string) {
+export function duplicate(str, n, seperator) {
   let result = "";
-  for(let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     result += str;
-    if(seperator && i < n - 1) result += seperator;
+    if (seperator && i < n - 1) result += seperator;
   }
   return result;
 }

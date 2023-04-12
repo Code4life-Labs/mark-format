@@ -17,6 +17,6 @@ export function hasLink(text) {
  * @returns 
  */
 export function getLinkInText(text) {
-  if(!hasLink(text)) return undefined;
+  if (!hasLink(text)) return undefined;
   return text.match(link)[0];
 }

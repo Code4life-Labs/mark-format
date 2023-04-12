@@ -1,17 +1,9 @@
 import { StyleProp, TextStyle, Text, Image, View, Alert } from "react-native";
-import TextGenerator from "mark-format/src/TextGenerator.js";
-import MFNode from "mark-format/src/MFNode.js";
-
-import { isBreakline, duplicate } from "mark-format/src/utils/string.js";
-
-import { LOW_MARK_CONVENTIONS, HIGH_MARK_CONVENTIONS } from "mark-format/src/rules.js";
-
-import {
-  UNORDERED_LIST_BULLETS,
-  ORDERED_LIST_BULLETS,
-  defaultFont
-} from '../config/toReactNative.config.js'
-
+import TextGenerator from "../../../mark-format/src/TextGenerator.js";
+import MFNode from "../../../mark-format/src/MFNode.js";
+import { isBreakline, duplicate } from "../../../mark-format/src/utils/string.js";
+import { LOW_MARK_CONVENTIONS, HIGH_MARK_CONVENTIONS } from "../../../mark-format/src/rules.js";
+import { UNORDERED_LIST_BULLETS, ORDERED_LIST_BULLETS, defaultFont } from "../config/toReactNative.config.js";
 const BOLD_TYPE = LOW_MARK_CONVENTIONS.BOLD.TYPE;
 const ITALIC_TYPE = LOW_MARK_CONVENTIONS.ITALIC.TYPE;
 const UNDERLINE_TYPE = LOW_MARK_CONVENTIONS.UNDERLINE.TYPE;
@@ -65,22 +57,18 @@ function ReactNativeRenderer(formatTypeToStyle) {
 //// CÁC HÀM ĐỂ LẤY THÔNG TIN
 ////====================================////
 ////
-ReactNativeRenderer.prototype.getStyles = function(formats, mergedStylesName) {
-  if(!this.formatTypeToStyle) throw new Error("Format type to style table isn't created.");
-
+ReactNativeRenderer.prototype.getStyles = function (formats, mergedStylesName) {
+  if (!this.formatTypeToStyle) throw new Error("Format type to style table isn't created.");
   let styles = [];
-
-  for(let format of formats) {
+  for (let format of formats) {
     styles.push(this.formatTypeToStyle[format]);
   }
-
-  if(mergedStylesName) {
-    if(!this.formatTypeToStyle[mergedStylesName]) throw new Error(`This merged style ${mergedStylesName} is not exist. Please add to Format type to Style Object.`);
+  if (mergedStylesName) {
+    if (!this.formatTypeToStyle[mergedStylesName]) throw new Error(`This merged style ${mergedStylesName} is not exist. Please add to Format type to Style Object.`);
     styles.push(this.formatTypeToStyle[mergedStylesName].style);
   }
-
   return styles;
-}
+};
 
 /**
  * __Creator__: @NguyenAnhTuan1912
@@ -90,12 +78,11 @@ ReactNativeRenderer.prototype.getStyles = function(formats, mergedStylesName) {
  * @param {string} format Format trong MFNode.
  * @returns {FormatTypeToStyle}
  */
-ReactNativeRenderer.prototype.getFTTS = function(format) {
-  if(!this.formatTypeToStyle) throw new Error("Format type to style table isn't created.");
-
+ReactNativeRenderer.prototype.getFTTS = function (format) {
+  if (!this.formatTypeToStyle) throw new Error("Format type to style table isn't created.");
   let ftts = this.formatTypeToStyle[format];
   return ftts;
-}
+};
 ////
 ////====================================////
 ////////////////////////////////////////////
@@ -106,16 +93,8 @@ ReactNativeRenderer.prototype.getFTTS = function(format) {
 //// CÁC HÀM KIỂM TRA
 ////====================================////
 ////
-ReactNativeRenderer.prototype.checkBoldWeight = (function() {
-  let boldReg = new RegExp(
-    BOLD_TYPE + "|" +
-    HEADING_0_TYPE + "|" +
-    HEADING_1_TYPE + "|" +
-    HEADING_2_TYPE + "|" +
-    HEADING_3_TYPE + "|" +
-    HEADING_4_TYPE + "|" +
-    HEADING_5_TYPE + "|"
-  );
+ReactNativeRenderer.prototype.checkBoldWeight = function () {
+  let boldReg = new RegExp(BOLD_TYPE + "|" + HEADING_0_TYPE + "|" + HEADING_1_TYPE + "|" + HEADING_2_TYPE + "|" + HEADING_3_TYPE + "|" + HEADING_4_TYPE + "|" + HEADING_5_TYPE + "|");
   /**
    * __Creator__: @NguyenAnhTuan1912
    * 
@@ -125,18 +104,13 @@ ReactNativeRenderer.prototype.checkBoldWeight = (function() {
    * @param {Array<string>} formats 
    * @returns {boolean}
    */
-  return function(formats) {
+  return function (formats) {
     let formatsInStr = formats.join(" ");
-
     return boldReg.test(formatsInStr);
-  }
-})();
-
-ReactNativeRenderer.prototype.checkLightWeight = (function() {
-  let lightReg = new RegExp(
-    SUB_0_TYPE + "|" +
-    SUB_1_TYPE + "|"
-  );
+  };
+}();
+ReactNativeRenderer.prototype.checkLightWeight = function () {
+  let lightReg = new RegExp(SUB_0_TYPE + "|" + SUB_1_TYPE + "|");
   /**
    * __Creator__: @NguyenAnhTuan1912
    * 
@@ -146,14 +120,12 @@ ReactNativeRenderer.prototype.checkLightWeight = (function() {
    * @param {Array<string>} formats 
    * @returns {boolean}
    */
-  return function(formats) {
+  return function (formats) {
     let formatsInStr = formats.join(" ");
-
     return lightReg.test(formatsInStr);
-  }
-})();
-
-ReactNativeRenderer.prototype.checkItalicStyle = (function() {
+  };
+}();
+ReactNativeRenderer.prototype.checkItalicStyle = function () {
   let italicReg = new RegExp(ITALIC_TYPE);
   /**
    * __Creator__: @NguyenAnhTuan1912
@@ -162,12 +134,11 @@ ReactNativeRenderer.prototype.checkItalicStyle = (function() {
    * @param {Array<string>} formats 
    * @returns {boolean}
    */
-  return function(formats) {
+  return function (formats) {
     let formatsInStr = formats.join(" ");
-
     return italicReg.test(formatsInStr);
-  }
-})();
+  };
+}();
 ////
 ////====================================////
 ////////////////////////////////////////////
@@ -186,7 +157,7 @@ ReactNativeRenderer.prototype.checkItalicStyle = (function() {
  * @param {ReactNativeRenderer} renderer React Native Renderer.
  * @returns 
  */
-ReactNativeRenderer.prototype.mergeFontWeightWithItalic = function(renderer) {
+ReactNativeRenderer.prototype.mergeFontWeightWithItalic = function (renderer) {
   // Vì HEADING_N luôn là parent của ITALIC cho nên không cần thêm nó ở đây, mình chỉ replace
   // 2 trường hợp:
   // 1. BOLD hoặc các HEADING_N bọc ITALIC
@@ -195,30 +166,22 @@ ReactNativeRenderer.prototype.mergeFontWeightWithItalic = function(renderer) {
   /**
    * @param {MFNode} mfNode
    */
-  return function(mfNode) {
-    if(!mfNode.children) return mfNode;
-    if(!mfNode.formats) return mfNode;
-    
+  return function (mfNode) {
+    if (!mfNode.children) return mfNode;
+    if (!mfNode.formats) return mfNode;
     let children = mfNode.children;
-
-    for(let child of children) {
+    for (let child of children) {
       let childFormatsInStr = child.formats ? child.formats.join(" ") : "";
-
-      if(
-        renderer.checkBoldWeight(mfNode.formats) && renderer.checkItalicStyle(child.formats)
-        || renderer.checkBoldWeight(child.formats) && renderer.checkItalicStyle(mfNode.formats)
-      ) {
-        childFormatsInStr = childFormatsInStr.replace(boldAndItalicReg, BOLD_TYPE + "&" + ITALIC_TYPE)
-      } else if(renderer.checkLightWeight(mfNode.formats) && renderer.checkItalicStyle(child.formats)) {
-        childFormatsInStr = childFormatsInStr.replace(ITALIC_TYPE, "LIGHT&" + ITALIC_TYPE)
+      if (renderer.checkBoldWeight(mfNode.formats) && renderer.checkItalicStyle(child.formats) || renderer.checkBoldWeight(child.formats) && renderer.checkItalicStyle(mfNode.formats)) {
+        childFormatsInStr = childFormatsInStr.replace(boldAndItalicReg, BOLD_TYPE + "&" + ITALIC_TYPE);
+      } else if (renderer.checkLightWeight(mfNode.formats) && renderer.checkItalicStyle(child.formats)) {
+        childFormatsInStr = childFormatsInStr.replace(ITALIC_TYPE, "LIGHT&" + ITALIC_TYPE);
       }
-      
       child.setFormats(childFormatsInStr.split(" "));
-
-      if(child.children) renderer.mergeFontWeightWithItalic(renderer)(child);
+      if (child.children) renderer.mergeFontWeightWithItalic(renderer)(child);
     }
-  }
-}
+  };
+};
 ////
 ////====================================////
 ////////////////////////////////////////////
@@ -237,8 +200,8 @@ ReactNativeRenderer.prototype.mergeFontWeightWithItalic = function(renderer) {
  * Phương thức này dùng để render `mf_tree` sang React Native Component.
  * @param {Array<MFNode, string>} mf_tree Cây MF là một mảng chứa các MFNode và string.
  */
-ReactNativeRenderer.prototype.render = function(mf_tree) {
-  if(!this.formatTypeToStyle) throw new Error("Format type to style table isn't created.");
+ReactNativeRenderer.prototype.render = function (mf_tree) {
+  if (!this.formatTypeToStyle) throw new Error("Format type to style table isn't created.");
 
   /**
    * @type {Array<MFNode, string>}
@@ -253,9 +216,9 @@ ReactNativeRenderer.prototype.render = function(mf_tree) {
   let weightAndStyleMerger = this.mergeFontWeightWithItalic(this);
 
   // Trước khi render thì merge các font weight với font style lại.
-  
+
   tree.forEach((ele, index) => {
-    if(ele instanceof MFNode) {
+    if (ele instanceof MFNode) {
       weightAndStyleMerger(ele);
       let result = ele.render(renderFunc);
       RenderedChildren.push(result);
@@ -263,15 +226,12 @@ ReactNativeRenderer.prototype.render = function(mf_tree) {
       RenderedChildren.push(ele);
     }
   });
-
-  return (
-    <Text style={!defaultFont ? {} : {fontFamily: defaultFont}}>
-      {
-        RenderedChildren
-      }
-    </Text>
-  );
-}
+  return /*#__PURE__*/React.createElement(Text, {
+    style: !defaultFont ? {} : {
+      fontFamily: defaultFont
+    }
+  }, RenderedChildren);
+};
 
 /**
  * __Creator__: @NguyenAnhTuan1912
@@ -282,7 +242,7 @@ ReactNativeRenderer.prototype.render = function(mf_tree) {
  * này nhận một `ReactNativeRenderer` Object và trả về một function để render MFNode.
  * @param {ReactNativeRenderer} renderer Đây là một trong những phần từ trong MFTree.
  */
-ReactNativeRenderer.prototype.renderNode = function(renderer) {
+ReactNativeRenderer.prototype.renderNode = function (renderer) {
   /**
    * Bên trong function render này sẽ có nhiều trường hợp để render. Và chính render này cũng là phần cốt lõi
    * để render MFNode ra HTML. Ở đây thì phải render theo quy tắc sole, nghĩa là cứ một value (text thường) thì
@@ -305,8 +265,14 @@ ReactNativeRenderer.prototype.renderNode = function(renderer) {
    * @param {CallBackProps} props Các đối số của CallBack.
    * @returns {Node}
    */
-  return function({
-    values, formats, url, currentSubList, isChildrenRenderFirst, children, _id
+  return function ({
+    values,
+    formats,
+    url,
+    currentSubList,
+    isChildrenRenderFirst,
+    children,
+    _id
   }) {
     let ele;
     let ftts = renderer.getFTTS(formats[0]);
@@ -314,30 +280,29 @@ ReactNativeRenderer.prototype.renderNode = function(renderer) {
     let eleChildren;
 
     // Nếu không tìm thấy FTTS Object có nghĩa là một list item.
-    if(!ftts) {
+    if (!ftts) {
       eleChildren = isChildrenRenderFirst ? children.merge(values) : values.merge(children);
-      ele = <Text key={_id}>{eleChildren}</Text>
+      ele = /*#__PURE__*/React.createElement(Text, {
+        key: _id
+      }, eleChildren);
       return ele;
     }
-
-    if(formats.length === 1) {
+    if (formats.length === 1) {
       styles = ftts.style;
     }
-    
-    if(formats.length > 1) {
+    if (formats.length > 1) {
       styles = renderer.getStyles(formats);
-      if(renderer.checkBoldWeight(formats) && renderer.checkItalicStyle(formats)) styles = renderer.getStyles(formats, "BOLD&ITALIC");
+      if (renderer.checkBoldWeight(formats) && renderer.checkItalicStyle(formats)) styles = renderer.getStyles(formats, "BOLD&ITALIC");
     }
-  
-    if(children) {
-      eleChildren = isChildrenRenderFirst ? children.merge(values) : values.merge(children)
+    if (children) {
+      eleChildren = isChildrenRenderFirst ? children.merge(values) : values.merge(children);
     } else {
       eleChildren = [values];
     }
 
     // Do trong AppText chỉ mới setup font size và font weigh, mấy thứ khác chưa setup.
     // Tên switch case t sẽ chia ra như này.
-    switch(ftts.format) {
+    switch (ftts.format) {
       case BOLD_TYPE:
       case ITALIC_TYPE:
       case BOLD_AND_ITALIC:
@@ -354,46 +319,73 @@ ReactNativeRenderer.prototype.renderNode = function(renderer) {
       case LINE_THROUGH_TYPE:
       case HIGHLIGHT_TYPE:
       case RIGHT_ALIGN_TYPE:
-      case CENTER_ALIGN_TYPE: {
-        ele = <Text key={_id} style={styles}>{eleChildren}</Text>
-        break;
-      };
-
-      case UNORDERED_LIST_TYPE: {
-        ele = renderer.createUnorderedList(values);
-        break;
-      };
-
-      case ORDERED_LIST_TYPE: {
-        ele = renderer.createOrderedList(values);
-        break;
-      };
-
-      case LINK_TYPE: {
-        ele = <Text key={_id} onPress={() => { Linking.openURL(url) }} style={styles}>{eleChildren}</Text>
-        break;
-      };
-
-      case IMAGE_TYPE: {
-        ele = ftts.hasDescription ? (
-          <View key={_id}>
-            <Image source={{uri: url}} style={styles} resizeMode="contain" />
-            <Text style={{textAlign: "center", marginTop: 8}}>{values[0]}</Text>
-          </View>
-        ) : (
-          <Image key={_id} source={{uri: url}} style={styles} resizeMode="contain" />
-        )
-        break;
-      };
-
-      default: {
-        throw new Error("This format is not exist in FormatTypeToStyle Table.");
-      }
+      case CENTER_ALIGN_TYPE:
+        {
+          ele = /*#__PURE__*/React.createElement(Text, {
+            key: _id,
+            style: styles
+          }, eleChildren);
+          break;
+        }
+        ;
+      case UNORDERED_LIST_TYPE:
+        {
+          ele = renderer.createUnorderedList(values);
+          break;
+        }
+        ;
+      case ORDERED_LIST_TYPE:
+        {
+          ele = renderer.createOrderedList(values);
+          break;
+        }
+        ;
+      case LINK_TYPE:
+        {
+          ele = /*#__PURE__*/React.createElement(Text, {
+            key: _id,
+            onPress: () => {
+              Linking.openURL(url);
+            },
+            style: styles
+          }, eleChildren);
+          break;
+        }
+        ;
+      case IMAGE_TYPE:
+        {
+          ele = ftts.hasDescription ? /*#__PURE__*/React.createElement(View, {
+            key: _id
+          }, /*#__PURE__*/React.createElement(Image, {
+            source: {
+              uri: url
+            },
+            style: styles,
+            resizeMode: "contain"
+          }), /*#__PURE__*/React.createElement(Text, {
+            style: {
+              textAlign: "center",
+              marginTop: 8
+            }
+          }, values[0])) : /*#__PURE__*/React.createElement(Image, {
+            key: _id,
+            source: {
+              uri: url
+            },
+            style: styles,
+            resizeMode: "contain"
+          });
+          break;
+        }
+        ;
+      default:
+        {
+          throw new Error("This format is not exist in FormatTypeToStyle Table.");
+        }
     }
-
     return ele;
-  }
-}
+  };
+};
 
 /**
  * __Creator__: @NguyenAnhTuan1912
@@ -408,30 +400,27 @@ ReactNativeRenderer.prototype.renderNode = function(renderer) {
  * @param {number} level Là level của list item, dùng để render các sub list item.
  * @returns {Array<Text>}
  */
-ReactNativeRenderer.prototype.createUnorderedList = function(mfNodes, level = 0) {
+ReactNativeRenderer.prototype.createUnorderedList = function (mfNodes, level = 0) {
   let bulletsLength = UNORDERED_LIST_BULLETS.length;
   let bullet = UNORDERED_LIST_BULLETS[level % bulletsLength];
   let itemsLength = mfNodes.length;
   let renderNode = this.renderNode(this);
-
   let items = mfNodes.map((value, index) => {
     let item = value;
     let keyForItem = value instanceof MFNode ? value._id + index : value + index;
-
-    if(value instanceof MFNode) {
+    if (value instanceof MFNode) {
       // item = createBasicHTMLElement(fttc.tagName, value.values, className);
       item = value.render(renderNode);
     }
-
-    return (
-      <Text key={keyForItem} style={{width: "100%"}}>
-        {index === 0 ? "\n" : ""}{duplicate("\t", level + 1)}{bullet + "\u0020"}{item}{"\n"}{index === itemsLength - 1 ? "\n" : ""}
-      </Text>
-    )
+    return /*#__PURE__*/React.createElement(Text, {
+      key: keyForItem,
+      style: {
+        width: "100%"
+      }
+    }, index === 0 ? "\n" : "", duplicate("\t", level + 1), bullet + "\u0020", item, "\n", index === itemsLength - 1 ? "\n" : "");
   });
-
   return items;
-}
+};
 
 /**
  * __Creator__: @NguyenAnhTuan1912
@@ -446,36 +435,29 @@ ReactNativeRenderer.prototype.createUnorderedList = function(mfNodes, level = 0)
  * @param {number} level Là level của list item, dùng để render các sub list item.
  * @returns {Array<Text>}
  */
-ReactNativeRenderer.prototype.createOrderedList = function(mfNodes, level = 0) {
+ReactNativeRenderer.prototype.createOrderedList = function (mfNodes, level = 0) {
   let bulletsLength = ORDERED_LIST_BULLETS.length;
   let bulletCollections = ORDERED_LIST_BULLETS[level % bulletsLength];
   let alphatbetLength = 26;
   let itemsLength = mfNodes.length;
   let renderNode = this.renderNode(this);
-
   let items = mfNodes.map((value, index) => {
     let item = value;
     let keyForItem = value instanceof MFNode ? value.values[0] + index : value + index;
-    let bullet = bulletCollections === "numbers"
-      ? index + 1
-      : index > alphatbetLength
-        ? bulletCollections[index % alphatbetLength] + (index + 1) % alphatbetLength
-        : bulletCollections[index];
-
-    if(value instanceof MFNode) {
+    let bullet = bulletCollections === "numbers" ? index + 1 : index > alphatbetLength ? bulletCollections[index % alphatbetLength] + (index + 1) % alphatbetLength : bulletCollections[index];
+    if (value instanceof MFNode) {
       // item = createBasicHTMLElement(fttc.tagName, value.values, className);
       item = value.render(renderNode);
     }
-
-    return (
-      <Text key={keyForItem} style={{width: "100%"}}>
-        {index === 0 ? "\n" : ""}{duplicate("\t", level + 1)}{bullet + ".\u0020"}{item}{"\n"}{index === itemsLength - 1 ? "\n" : ""}
-      </Text>
-    )
+    return /*#__PURE__*/React.createElement(Text, {
+      key: keyForItem,
+      style: {
+        width: "100%"
+      }
+    }, index === 0 ? "\n" : "", duplicate("\t", level + 1), bullet + ".\u0020", item, "\n", index === itemsLength - 1 ? "\n" : "");
   });
-
   return items;
-}
+};
 ////
 ////====================================////
 ////////////////////////////////////////////

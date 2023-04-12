@@ -1,12 +1,9 @@
-import HTMLRenderer from './render/HTMLRenderer.js';
-import TextGeneratorBuilder from 'mark-format/src/creator/TextGeneratorBuilder.js';
-import TextGeneratorPrototype from 'mark-format/src/creator/TextGeneratorPrototype.js';
-
-import RunArrayConfigs from 'mark-format/src/configs/array.config.js';
-import { LOW_MARK_CONVENTIONS, HIGH_MARK_CONVENTIONS, ALLMFs } from 'mark-format/src/rules.js';
-
-import formatTypeToCss from './config/toHTML.config.js';
-
+import HTMLRenderer from "./render/HTMLRenderer.js";
+import TextGeneratorBuilder from "../../mark-format/src/creator/TextGeneratorBuilder.js";
+import TextGeneratorPrototype from "../../mark-format/src/creator/TextGeneratorPrototype.js";
+import RunArrayConfigs from "../../mark-format/src/configs/array.config.js";
+import { LOW_MARK_CONVENTIONS, HIGH_MARK_CONVENTIONS, ALLMFs } from "../../mark-format/src/rules.js";
+import formatTypeToCss from "./config/toHTML.config.js";
 RunArrayConfigs();
 
 /*
@@ -17,12 +14,7 @@ RunArrayConfigs();
 //
 // Dưới đây là các bước để build một TextGenerator mới
 // Tạo một generator mới.
-const generator = new TextGeneratorBuilder()
-  .buildRules(LOW_MARK_CONVENTIONS)
-  .buildRules(HIGH_MARK_CONVENTIONS)
-  .buildAllRulesInOne()
-  .buildAllMF(ALLMFs)
-  .build();
+const generator = new TextGeneratorBuilder().buildRules(LOW_MARK_CONVENTIONS).buildRules(HIGH_MARK_CONVENTIONS).buildAllRulesInOne().buildAllMF(ALLMFs).build();
 
 // Tạo một renderer mới và gán nó cho generator. Coi như là mặc định.
 generator.renderer = new HTMLRenderer(formatTypeToCss);
@@ -31,5 +23,4 @@ generator.renderer = new HTMLRenderer(formatTypeToCss);
 // thì chỉ cần build ra thôi, không cần phải set up lại từ đầu như
 // các bước trên.
 const HTMLTextGeneratorProto = new TextGeneratorPrototype(generator);
-
 export { HTMLTextGeneratorProto };
